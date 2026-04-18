@@ -1,0 +1,27 @@
+# Node modules
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+**/node_modules/
+
+# Build output
+dist/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Archives
+*.rar
+*.zip
+*.7z
+
+# Editor files
+.vscode/
+.idea/

@@ -1,0 +1,12 @@
+{
+  "name": "stellar-lens",
+  "version": "1.0.0",
+  "description": "3D Solar System Simulation",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx http-server -p 3000 -o"
+  },
+  "keywords": ["three.js", "simulation", "solar-system"],
+  "author": "",
+  "license": "MIT"
+}
