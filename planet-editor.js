@@ -62,44 +62,50 @@ function resetAllEditorSettings() {
   if (gmSlider) gmSlider.value = _originalGM;
   if (gmValEl)  gmValEl.textContent = _originalGM;
 
-  // Reset semua planet bawaan
+  // Reset semua planet bawaan ke nilai aslinya
   BASE_PLANETS.forEach((_, i) => resetSinglePlanetToOriginal(i));
 
-  // Hapus planet kustom (sembunyikan)
-  planetObjs.slice(BASE_PLANETS.length).forEach(obj => {
-    if (!obj._editorRemoved) {
-      obj._editorRemoved = true;
-      obj.visible = false;
-      ['mesh','label','orbitLine','trail','vecGroup'].forEach(k => {
-        if (obj[k]) obj[k].visible = false;
-      });
-    }
+  // Hapus planet kustom sepenuhnya: scene + legend + planetObjs array
+  const customObjs = planetObjs.splice(BASE_PLANETS.length);
+  customObjs.forEach(obj => {
+    ['mesh', 'label', 'orbitLine', 'trail', 'vecGroup'].forEach(k => {
+      if (obj[k]) scene.remove(obj[k]);
+    });
+    const legRow = document.getElementById('leg-' + obj.data.name);
+    if (legRow) legRow.remove();
   });
 
-  // Sync slider per-planet yang sedang terbuka
+  // Hapus opsi kustom dari dropdown editor
   const sel = document.getElementById('ed-planet-select');
   if (sel) {
-    // Hapus opsi planet kustom dari dropdown
-    const opts = sel.querySelectorAll('option');
-    opts.forEach(opt => {
-      const i = parseInt(opt.value);
-      if (i >= BASE_PLANETS.length) opt.remove();
+    sel.querySelectorAll('option').forEach(opt => {
+      if (parseInt(opt.value) >= BASE_PLANETS.length) opt.remove();
     });
+    if (parseInt(sel.value) >= BASE_PLANETS.length) sel.value = 0;
     editorSelectPlanet(parseInt(sel.value) || 0);
   }
 
-  // Update custom planet list
+  // Hapus vis-btn kustom dari editor Global tab
+  const visList = document.getElementById('ed-visibility-list');
+  if (visList) {
+    visList.querySelectorAll('.ed-vis-btn').forEach(btn => {
+      if (parseInt(btn.dataset.idx) >= BASE_PLANETS.length) btn.remove();
+    });
+  }
+
+  // Update custom planet list (sekarang kosong)
   updateCustomPlanetList();
 
-  // Sync vis buttons
+  // Sync vis buttons planet bawaan
   planetObjs.forEach((obj, i) => {
     const btn = document.getElementById('ed-vis-' + i);
     if (btn) btn.classList.toggle('active', !!obj.visible);
   });
 
   setTimeout(syncGlobalButtons, 60);
-  showToast('↺ Planet Editor direset ke kondisi awal');
+  showToast('\u21ba Planet Editor direset ke kondisi awal');
 }
+
 
 // ── Entry point ───────────────────────────────────────────────────────────
 function initEditor() {
