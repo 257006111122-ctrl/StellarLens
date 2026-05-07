@@ -1,4 +1,4 @@
-// ── Bintang Latar ────────────────────────────────────────────────────────
+// Bintang Latar
 function makeStars() {
   const geo = new THREE.BufferGeometry();
   const n = 3000, pos = new Float32Array(n * 3);
@@ -9,7 +9,7 @@ function makeStars() {
   })));
 }
 
-// ── Matahari ─────────────────────────────────────────────────────────────
+// Matahari
 function makeSun() {
   scene.add(new THREE.Mesh(
     new THREE.SphereGeometry(8, 32, 32),
@@ -26,7 +26,7 @@ function makeSun() {
   ));
 }
 
-// ── Pencahayaan ───────────────────────────────────────────────────────────
+// Pencahayaan 
 function makeLights() {
   scene.add(new THREE.AmbientLight(0x111133, 0.3));
   const sl = new THREE.PointLight(0xfff5e0, 1.75, 400);
@@ -37,7 +37,7 @@ function makeLights() {
   rl.position.set(100, -50, 200); scene.add(rl);
 }
 
-// ── Planet ────────────────────────────────────────────────────────────────
+// Planet
 function makePlanet(pdata) {
   const theta0 = Math.random() * Math.PI * 2;
   const r = pdata.orbitR;

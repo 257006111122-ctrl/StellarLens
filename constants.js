@@ -1,5 +1,6 @@
 // ── Konstanta Fisika ──────────────────────────────────────────────────────
-const GM = 1000;
+// Gunakan var agar bisa di-override oleh Planet Editor secara runtime
+var GM = 1000;
 
 // ── Data Planet (TIDAK DIUBAH) ────────────────────────────────────────────
 const BASE_PLANETS = [

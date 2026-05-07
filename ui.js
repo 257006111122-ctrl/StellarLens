@@ -1,4 +1,4 @@
-// ── Build Preset Cards ────────────────────────────────────────────────────
+// Build Preset Cards
 function buildPresetUI() {
   const grid = document.getElementById('preset-grid');
   PRESETS.forEach(preset => {
@@ -15,7 +15,7 @@ function buildPresetUI() {
   });
 }
 
-// ── Apply Preset ──────────────────────────────────────────────────────────
+// Apply Preset
 function applyPreset(preset) {
   planetObjs.forEach(obj => {
     obj.theta = Math.random() * Math.PI * 2;
@@ -74,7 +74,7 @@ function applyPreset(preset) {
   showToast('🚀 Skenario "' + preset.name + '" aktif');
 }
 
-// ── Toggle Visibilitas Planet ─────────────────────────────────────────────
+// Toggle Visibilitas Planet
 function setPlanetVisible(obj, v) {
   obj.visible = v;
   obj.mesh.visible = v; obj.label.visible = v;
@@ -84,7 +84,7 @@ function setPlanetVisible(obj, v) {
   if (row) row.style.opacity = v ? '1' : '0.3';
 }
 
-// ── Toast Notifikasi ──────────────────────────────────────────────────────
+// Toast Notifikasi
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.innerHTML = msg; t.classList.add('show');
@@ -92,7 +92,7 @@ function showToast(msg) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
 }
 
-// ── Pilih Planet Aktif ────────────────────────────────────────────────────
+// Pilih Planet Aktif
 function setSelected(obj) {
   selectedPlanet = obj;
   document.querySelectorAll('.leg-row').forEach(r => r.classList.remove('active-planet'));
@@ -100,7 +100,7 @@ function setSelected(obj) {
   if (row) row.classList.add('active-planet');
 }
 
-// ── Update Info Panel ─────────────────────────────────────────────────────
+// Update Info Panel
 function showInfo(obj) {
   document.getElementById('info-panel').classList.add('show');
   document.getElementById('planet-name').textContent = obj.data.name;
@@ -116,7 +116,7 @@ function showInfo(obj) {
   document.getElementById('i-ecc').textContent    = obj.data.ecc.toFixed(3);
 }
 
-// ── Reset Simulasi ────────────────────────────────────────────────────────
+// Reset Simulasi
 function resetSimulation() {
   planetObjs.forEach(obj => {
     obj.theta = Math.random() * Math.PI * 2;
@@ -175,9 +175,14 @@ function resetSimulation() {
   });
   
   showToast('↺ Simulasi direset ke kondisi awal');
+
+  // Reset planet editor settings jika sudah diinisialisasi
+  if (typeof resetAllEditorSettings === 'function') {
+    resetAllEditorSettings();
+  }
 }
 
-// ── Setup Event Controls ──────────────────────────────────────────────────
+// Setup Event Controls
 function setupControls() {
   // Speed buttons
   document.querySelectorAll('.speed-btn').forEach(btn => {
@@ -272,9 +277,14 @@ function setupControls() {
     });
   });
 
-  // Start menu button (placeholder)
-  document.querySelector('.start-btn').addEventListener('click', () => {
-    showToast('🚀 Start Menu - Coming Soon!');
+  // Planet Editor button
+  document.getElementById('planet-editor-btn').addEventListener('click', () => {
+    const panel = document.getElementById('editor-panel');
+    if (!panel) return;
+    const isOpen = panel.style.display === 'block';
+    panel.style.display = isOpen ? 'none' : 'block';
+    editorPanelOpen = !isOpen;
+    document.getElementById('planet-editor-btn').classList.toggle('active', !isOpen);
   });
 
   // Canvas click to close panels
@@ -287,7 +297,7 @@ function setupControls() {
   });
 }
 
-// ── Mouse Events ──────────────────────────────────────────────────────────
+// Mouse Events
 function onMouseMove(e) {
   mouse.x =  (e.clientX / window.innerWidth)  * 2 - 1;
   mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;

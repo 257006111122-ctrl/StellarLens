@@ -1,4 +1,4 @@
-// ── Inisialisasi Utama ────────────────────────────────────────────────────
+// Inisialisasi Utama
 function init() {
   const canvas = document.getElementById('c');
   const W = window.innerWidth, H = window.innerHeight;
@@ -31,6 +31,9 @@ function init() {
   buildPresetUI();
   setupControls();
   setupOrbitControls();
+
+  // Init Planet Editor setelah planetObjs sudah terisi
+  initEditor();
 
   // Event listeners global
   window.addEventListener('resize', onResize);

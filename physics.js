@@ -1,5 +1,4 @@
-// ── Update Arrow Helper ───────────────────────────────────────────────────
-// (Fisika dan perhitungan vektor TIDAK DIUBAH)
+// (Fisika dan perhitungan vektor)
 function updateArrow(vo, origin, dir, len) {
   const l = Math.max(len, 0.5);
   vo.arrow.position.copy(origin);
@@ -7,7 +6,7 @@ function updateArrow(vo, origin, dir, len) {
   vo.arrow.setDirection(dir.clone().normalize());
 }
 
-// ── Loop Animasi Utama ────────────────────────────────────────────────────
+// Loop Animasi Utama
 function animate(ts) {
   requestAnimationFrame(animate);
   const dt = Math.min((ts - lastTime) / 1000, 0.05);
@@ -20,7 +19,7 @@ function animate(ts) {
       if (!obj.visible) return;
       const p = obj.data;
 
-      // ── Posisi r⃗(t) = r·cos(ωt), r·sin(ωt) ─────────────────────────
+      // ── Posisi r⃗(t) = r·cos(ωt), r·sin(ωt)
       obj.theta += p.speed * dt * speedMult * 0.5;
       const x = p.orbitR * Math.cos(obj.theta);
       const z = p.orbitR * Math.sin(obj.theta);
@@ -41,7 +40,7 @@ function animate(ts) {
       pa.needsUpdate = true;
       obj.trail.geometry.setDrawRange(0, fade);
 
-      // ── Kecepatan v⃗ = dr⃗/dt ─────────────────────────────────────────
+      // ── Kecepatan v⃗ = dr⃗/dt
       const rV = new THREE.Vector3(x, 0, z);
       const r = rV.length();
       const vx = -p.orbitR * p.speed * Math.sin(obj.theta) * 0.5;
@@ -49,7 +48,7 @@ function animate(ts) {
       const speed = Math.sqrt(vx * vx + vz * vz);
 
       // ── Percepatan a⃗ = GM/r² (Hukum Gravitasi Newton) ───────────────
-      const aAbs = GM / (r * r) * 0.1;
+      const aAbs = (window.GM || GM) / (r * r) * 0.1;
 
       obj._r = r; obj._speed = speed; obj._a = aAbs;
       obj._vx = vx; obj._vz = vz; obj._x = x; obj._z = z;
@@ -74,7 +73,7 @@ function animate(ts) {
     if (earth) {
       const prevTheta = earth.theta - (earth.data.speed * dt * speedMult * 0.5);
       if (prevTheta % (Math.PI * 2) > earth.theta % (Math.PI * 2)) {
-        // Earth completed a full orbit
+        // Earth completed a full orbit 
         currentYear++;
         document.getElementById('current-year').textContent = currentYear;
       }
