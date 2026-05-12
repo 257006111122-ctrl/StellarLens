@@ -63,7 +63,7 @@ function animate(ts) {
           rV.clone().negate().normalize(), aAbs * 9);
       }
 
-      // ── Jarak Tempuh s = ∫|v⃗|dt ─────────────────────────────────────
+      // ── Jarak Tempuh s = ∫|v⃗|dt
       if (obj.prevPos) obj.distTraveled += new THREE.Vector3(x, 0, z).distanceTo(obj.prevPos);
       obj.prevPos = new THREE.Vector3(x, 0, z);
     });

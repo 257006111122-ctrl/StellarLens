@@ -1,12 +1,7 @@
-// ═══════════════════════════════════════════════════════════════════════════
-// PLANET EDITOR — Fully Functional
-// initEditor() dipanggil dari main.js setelah init() selesai
-// ═══════════════════════════════════════════════════════════════════════════
-
 let editorPanelOpen = false;
 let _editorReady = false;
 
-// ── Snapshot data asli planet (disimpan saat initEditor dipanggil) ─────────
+// ── Snapshot data asli planet 
 let _originalPlanetData = null;
 let _originalGM = 1000;
 
@@ -93,7 +88,7 @@ function resetAllEditorSettings() {
     });
   }
 
-  // Update custom planet list (sekarang kosong)
+  // Update custom planet list
   updateCustomPlanetList();
 
   // Sync vis buttons planet bawaan
@@ -331,7 +326,7 @@ function buildEditorHTML() {
   `;
 }
 
-// ── Wire Global Tab ───────────────────────────────────────────────────────
+// ── Wire Global Tab
 function wireGlobalTab() {
   // GM slider
   const gmSlider = document.getElementById('ed-gm');
@@ -384,7 +379,7 @@ function wireGlobalTab() {
     setTimeout(syncGlobalButtons, 60);
   });
 
-  // Reset editor only (tanpa reset simulasi)
+  // Reset editor only
   document.getElementById('ed-reset-editor').addEventListener('click', () => {
     resetAllEditorSettings();
   });
@@ -595,7 +590,7 @@ function wirePlanetSliders(idx, obj) {
     showToast('↺ Trail ' + obj.data.name + ' dihapus');
   });
 
-  // Reset planet ini ke default (hanya planet bawaan)
+  // Reset planet ke default
   const resetPlanetBtn = document.getElementById('ed-reset-planet');
   if (resetPlanetBtn) {
     if (idx >= BASE_PLANETS.length) {
